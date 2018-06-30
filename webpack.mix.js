@@ -1,4 +1,10 @@
+require('dotenv').config()
 let mix = require('laravel-mix');
+const workboxPlugin = require('workbox-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+const package = require('./package.json');
+const dependencies = Object.keys(package.dependencies);
 
 /*
  |--------------------------------------------------------------------------
@@ -11,6 +17,58 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css')
-    .copy('node_modules/font-awesome/fonts', 'public/fonts');
+mix.extract(dependencies)
+    .js('resources/assets/js/app.js', 'public/js')
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .autoload({
+        jquery: ['$', 'window.jQuery']
+    })
+    .options({
+        extractVueStyles: true,
+        processCssUrls: true,
+        uglify: {},
+        purifyCss: false,
+        //purifyCss: {},
+        postCss: [require('autoprefixer')],
+        clearConsole: false
+    })
+    .webpackConfig({
+        plugins: [
+            new workboxPlugin.GenerateSW({
+                swDest: path.join(`${__dirname}/public`, 'sw.js'),
+                clientsClaim: true,
+                skipWaiting: true,
+                runtimeCaching: [
+                    {
+                        urlPattern: '/',
+                        handler: 'networkFirst',
+                        options: {
+                            cacheName: 'Wodemocracy frontpage'
+                        }
+                    },
+                    {
+                        urlPattern: new RegExp('/*'),
+                        handler: 'cacheFirst',
+                        options: {
+                            cacheName: 'WOD page'
+                        }
+                    },
+                    {
+                        urlPattern: new RegExp('https://fonts.(googleapis|gstatic).com'),
+                        handler: 'cacheFirst',
+                        options: {
+                            cacheName: 'google-fonts'
+                        }
+                    }
+                ]
+            }),
+            new BundleAnalyzerPlugin({
+                analyzerMode: 'static',
+                reportFilename: path.join(`${__dirname}/public`, 'webpack-report.html'),
+                openAnalyzer: false,
+                logLevel: 'silent'
+            }),
+        ]
+    })
+    .sourceMaps(!mix.inProduction())
+    .disableNotifications();

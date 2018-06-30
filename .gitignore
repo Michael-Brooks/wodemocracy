@@ -15,3 +15,6 @@ yarn-error.log
 .editorconfig
 vessel
 deploy.php
+/public/precache-manifest.*
+/public/sw.js
+/public/webpack-report.html
