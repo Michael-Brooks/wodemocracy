@@ -104,7 +104,7 @@
                             @method('DELETE')
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-3">
-                                    <delete-user></delete-user>
+                                    <confirm-delete-button title="{{ __('Delete User') }}" message="Are you sure? Your account will not be recoverable."></confirm-delete-button>
                                 </div>
                             </div>
                         </form>

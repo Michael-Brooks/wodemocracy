@@ -101,11 +101,11 @@
                                         </div>
                                         @if(\Illuminate\Support\Facades\Auth::id() === $workout->user_id)
                                             <div class="col-md-3 offset-md-7 col-sm-12">
-                                                <form action="/workout/{{ $workout->id }}" method="post">
+                                                <form action="/workout/{{ $workout->id }}" id="delete_form" method="post">
                                                     @method('DELETE')
                                                     @csrf
                                                     <div class="form-group">
-                                                        <button class="btn btn-block btn-danger">Delete Workout</button>
+                                                        <confirm-delete-button title="Delete Workout" message="Are you sure?"></confirm-delete-button>
                                                     </div>
                                                 </form>
                                             </div>

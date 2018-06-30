@@ -15,7 +15,7 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('delete-user', require('./components/DeleteUserComponent.vue'));
+Vue.component('ConfirmDeleteButton', require('./components/ConfirmDeleteButtonComponent.vue'));
 
 const app = new Vue({
     el: '#app'

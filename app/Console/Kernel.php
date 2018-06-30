@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
         // If in development call this
 	    if(App::environment('local')) {
 
-            /*$schedule->call(function () {
+            $schedule->call(function () {
                 $wod = new Commands\CreateVotingThread();
                 $wod->create();
             })->everyMinute();
@@ -42,7 +42,7 @@ class Kernel extends ConsoleKernel
             $schedule->call(function () {
                 $workout = new Commands\SetWinningWorkoutToWOD();
                 $workout->set();
-            })->everyMinute();*/
+            })->everyMinute();
 
             $schedule->call(function () {
                 $users = User::whereHas('subscription', function ($query) {
