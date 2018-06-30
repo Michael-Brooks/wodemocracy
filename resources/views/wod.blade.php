@@ -105,7 +105,7 @@
                                                     @method('DELETE')
                                                     @csrf
                                                     <div class="form-group">
-                                                        <confirm-delete-button title="Delete Workout" message="Are you sure?"></confirm-delete-button>
+                                                        <confirm-delete-button title="{{ __('Delete Workout') }}" message="{{ __('Are you sure?') }}"></confirm-delete-button>
                                                     </div>
                                                 </form>
                                             </div>
