@@ -38,15 +38,6 @@
     <script src="{{ mix('js/manifest.js') }}" defer></script>
     <script src="{{ mix('js/vendor.js') }}" defer></script>
     <script src="{{ mix('js/app.js') }}" defer></script>
-    <script>
-        // Check that service workers are registered
-        if ('serviceWorker' in navigator) {
-            // Use the window load event to keep the page load performant
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js');
-            });
-        }
-    </script>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -114,34 +105,5 @@
     </footer>
 
     @include('cookieConsent::index')
-
-    <!-- Start of Async Drift Code -->
-    <script>
-        "use strict";
-
-        !function() {
-            var t = window.driftt = window.drift = window.driftt || [];
-            if (!t.init) {
-                if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
-                t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
-                    t.factory = function(e) {
-                        return function() {
-                            var n = Array.prototype.slice.call(arguments);
-                            return n.unshift(e), t.push(n), t;
-                        };
-                    }, t.methods.forEach(function(e) {
-                    t[e] = t.factory(e);
-                }), t.load = function(t) {
-                    var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
-                    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
-                    var i = document.getElementsByTagName("script")[0];
-                    i.parentNode.insertBefore(o, i);
-                };
-            }
-        }();
-        drift.SNIPPET_VERSION = '0.3.1';
-        drift.load('n5d82vw8ms98');
-    </script>
-    <!-- End of Async Drift Code -->
 </body>
 </html>
