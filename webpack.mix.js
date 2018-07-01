@@ -28,13 +28,17 @@ mix.extract(dependencies)
         processCssUrls: true,
         uglify: {},
         purifyCss: false,
-        //purifyCss: {},
         postCss: [require('autoprefixer')],
         clearConsole: false
     })
     .webpackConfig({
         plugins: [
-            new workboxPlugin.GenerateSW({
+            new workboxPlugin({
+                globDirectory: './public',
+                globPatterns: [
+                    '**/*.{html,css,js}',
+                    'fonts/**/*.*'
+                ],
                 swDest: path.join(`${__dirname}/public`, 'sw.js'),
                 clientsClaim: true,
                 skipWaiting: true,

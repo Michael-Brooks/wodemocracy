@@ -18,3 +18,4 @@ deploy.php
 /public/precache-manifest.*
 /public/sw.js
 /public/webpack-report.html
+/public/workbox*
