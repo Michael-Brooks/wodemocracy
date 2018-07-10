@@ -51,13 +51,6 @@ mix.extract(dependencies)
                         }
                     },
                     {
-                        urlPattern: new RegExp('/*'),
-                        handler: 'cacheFirst',
-                        options: {
-                            cacheName: 'WOD page'
-                        }
-                    },
-                    {
                         urlPattern: new RegExp('https://fonts.(googleapis|gstatic).com'),
                         handler: 'cacheFirst',
                         options: {
