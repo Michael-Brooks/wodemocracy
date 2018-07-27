@@ -22,8 +22,25 @@ class WODController extends Controller
             ->get();
 
 		return view('wod',[
+		    'id'        => $id,
 			'wod'       => $wod,
 			'workouts'  => $workouts
 		]);
 	}
+
+	public function getWODs($id = null)
+    {
+        if($id === null)
+        {
+            $wods = WOD::whereHas('workouts', function ($query) {
+                $query->where('won', 1);
+            })->with('workouts')->orderBy('created_at', 'desc')->paginate(10);
+
+            return response()->json($wods);
+        }
+
+        $wod = WOD::where('id', $id)->with(['workouts', 'workouts.votes', 'workouts.user'])->first();
+
+        return response()->json($wod);
+    }
 }

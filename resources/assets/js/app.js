@@ -14,20 +14,22 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-Vue.component('ConfirmDeleteButton', require('./components/ConfirmDeleteButtonComponent.vue'));
+Vue.component('pagination', require('laravel-vue-pagination'));
+Vue.component('ConfirmDeleteButton', require('./components/ConfirmDeleteButtonComponent'));
+Vue.component('Wod', require('./components/WODComponent'));
+Vue.component('Wods', require('./components/WODsComponent'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
 });
 
-// Check that service workers are registered
-if ('serviceWorker' in navigator) {
-    // Use the window load event to keep the page load performant
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js');
-    });
-}
+// // Check that service workers are registered
+// if ('serviceWorker' in navigator) {
+//     // Use the window load event to keep the page load performant
+//     window.addEventListener('load', () => {
+//         navigator.serviceWorker.register('/sw.js');
+//     });
+// }
 
 !function() {
     var t = window.driftt = window.drift = window.driftt || [];
