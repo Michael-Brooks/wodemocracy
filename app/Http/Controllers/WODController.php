@@ -12,19 +12,9 @@ class WODController extends Controller
 	{
 	    $wod = WOD::find($id);
 
-		$workouts = Workout::withCount(['votes', 'votes as upvotes_count' => function ($query) {
-			$query->where('upvote', 1);
-		}, 'votes as downvotes_count' => function ($query) {
-			$query->where('downvote', 1);
-		}])
-            ->where('w_o_d_id', $id)
-            ->orderBy('upvotes_count', 'desc')
-            ->get();
-
 		return view('wod',[
 		    'id'        => $id,
-			'wod'       => $wod,
-			'workouts'  => $workouts
+			'wod'       => $wod
 		]);
 	}
 
@@ -39,8 +29,18 @@ class WODController extends Controller
             return response()->json($wods);
         }
 
-        $wod = WOD::where('id', $id)->with(['workouts', 'workouts.votes', 'workouts.user'])->first();
+        $wod = WOD::find($id);
 
-        return response()->json($wod);
+        $workouts = Workout::withCount(['votes', 'votes as upvotes_count' => function ($query) {
+            $query->where('upvote', 1);
+        }, 'votes as downvotes_count' => function ($query) {
+            $query->where('downvote', 1);
+        }])
+            ->with('user')
+            ->where('w_o_d_id', $id)
+            ->orderBy('upvotes_count', 'desc')
+            ->get();
+
+        return response()->json([$wod, $workouts]);
     }
 }
