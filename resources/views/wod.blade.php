@@ -64,7 +64,7 @@
                 @endif
             @endauth
 
-            <wod :id="{{ $id }}"></wod>
+            <wod :id="{{ $id }}" :auth="{{ Auth::check() ?: 0 }}" :user="{{ Auth::id() ?: 0 }}"></wod>
         @endif
     </div>
 @endsection

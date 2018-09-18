@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('WODs/{id?}', 'WODController@getWODs');
 Route::get('workouts', 'WorkoutController@getWorkouts');
+
+Route::post('/vote/{id}', 'WorkoutController@submitVote');

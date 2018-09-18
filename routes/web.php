@@ -24,7 +24,6 @@ Route::post('/workout/{id}', 'WorkoutController@create');
 Route::delete('/workout/{id}', 'WorkoutController@delete');
 
 Route::post('/vote/{id}', 'VoteController@create');
-Route::put('/vote/{id}', 'VoteController@update');
 
 Route::delete('dashboard', 'Auth\UserController@delete')->middleware('auth');
 Route::get('/dashboard', 'Auth\UserController@dashboard')->name('dashboard')->middleware('auth');

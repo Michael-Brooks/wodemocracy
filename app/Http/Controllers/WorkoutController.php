@@ -42,4 +42,28 @@ class WorkoutController extends Controller
 
 		return Redirect::back();
 	}
+
+	public function submitVote(Request $request, $id) {
+        $userId = $request->input('user');
+
+        if(!$vote = Vote::where('workout_id', $id)->where('user_id', $userId)->first()) {
+            $vote = new Vote();
+        }
+
+        $vote->upvote = $request->input('upvote');
+        $vote->downvote = $request->input('downvote');
+        $vote->workout_id = $id;
+        $vote->user_id = $userId;
+        $vote->save();
+
+        $getVoteCount = Workout::withCount(['votes as upvotes_count' => function ($query) {
+            $query->where('upvote', 1);
+        }, 'votes as downvotes_count' => function ($query) {
+            $query->where('downvote', 1);
+        }])
+            ->with('user')
+            ->where('id', $id)->first();
+
+        return response()->json($getVoteCount);
+    }
 }
