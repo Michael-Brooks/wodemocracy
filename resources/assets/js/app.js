@@ -18,6 +18,7 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('ConfirmDeleteButton', require('./components/ConfirmDeleteButtonComponent'));
 Vue.component('Wod', require('./components/WODComponent'));
 Vue.component('Wods', require('./components/WODsComponent'));
+Vue.component('Vote', require('./components/VoteComponent'));
 
 const app = new Vue({
     el: '#app',

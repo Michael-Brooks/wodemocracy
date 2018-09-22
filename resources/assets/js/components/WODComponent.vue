@@ -8,20 +8,7 @@
                         <vue-markdown>{{ workout.details }}</vue-markdown>
                     </div>
                     <div class="card-footer">
-                        <div class="row">
-                            <div class="col-md-1">
-                                <button class="btn btn-block btn-info" :disabled="auth === 0" v-on:click="setUpvote(workout.id)">
-                                    <i class="fas fa-arrow-circle-up"></i>
-                                    <span class="ml-2">{{ workout.upvotes_count }}</span>
-                                </button>
-                            </div>
-                            <div class="col-md-1">
-                                <button class="btn btn-block btn-info" :disabled="auth === 0" v-on:click="setDownvote(workout.id)">
-                                    <i class="fas fa-arrow-circle-down"></i>
-                                    <span class="ml-2">{{ workout.downvotes_count }}</span>
-                                </button>
-                            </div>
-                        </div>
+                        <vote :id="workout.id" :auth="auth" :user="user" :upvotes-count="workout.upvotes_count" :downvotes-count="workout.downvotes_count"></vote>
                     </div>
                 </div>
             </div>
@@ -57,30 +44,9 @@
                 axios.get('/api/WODs/' + this.id)
                     .then(response => (this.wod = response.data));
             },
-            setUpvote(id) {
-                axios.post('/api/vote/' + id, {
-                    upvote: 1,
-                    downvote: 0,
-                    user: this.user,
-                })
-                    .then(function (response) {
-                        // Add 1 to upvote button
-                    });
-            },
-            setDownvote(id) {
-                this.wod = 1;
-                axios.post('/api/vote/' + id, {
-                    upvote: 0,
-                    downvote: 1,
-                    user: this.user,
-                })
-                    .then(function (response) {
-                        // Add 1 to downvote button
-                    });
-            },
         },
         components: {
             VueMarkdown,
-        }
+        },
     }
 </script>
