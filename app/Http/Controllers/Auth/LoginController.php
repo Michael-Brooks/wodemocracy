@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -38,27 +36,4 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
-
-    /**
-     * @param Request $request
-     * @param $user
-     * @return mixed
-     */
-    protected function authenticated(Request $request, $user)
-    {
-        if(!Auth::attempt([
-            'email' => $request->input('email'),
-            'password'  => $request->input('password'),
-            'verified' => 1
-        ])) {
-            $this->guard()->logout();
-
-            return redirect('/login')
-                ->withErrors([
-                    'verification' => 'Please activate your account.'
-                ]);
-        }
-    }
-
 }

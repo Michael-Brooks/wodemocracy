@@ -26,7 +26,11 @@
                                 <th scope="row">{{ $user->id }}</th>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->verified }}</td>
+                                <td>
+                                    {{ $user->email_verified_at !== null
+                                    ? \Carbon\Carbon::parse($user->email_verified_at)->format('d/m/Y')
+                                    : '' }}
+                                </td>
                                 <td>
                                     <form method="post" action="/admin/users/{{ $user->id }}">
                                         @csrf

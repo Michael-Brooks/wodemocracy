@@ -13,11 +13,10 @@
 
 Route::get('/', 'HomeController@index');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/wod/{id}', 'WODController@index');
 
-Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 Route::view('/terms', 'terms');
 
 Route::post('/workout/{id}', 'WorkoutController@create');
