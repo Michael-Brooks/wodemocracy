@@ -12,7 +12,7 @@
     "devDependencies": {
         "cross-env": "^5.2.0",
         "laravel-mix": "^2.1.14",
-        "webpack-bundle-analyzer": "^2.10.0",
+        "webpack-bundle-analyzer": "^3.3.2",
         "workbox-webpack-plugin": "^2.1.2"
     },
     "dependencies": {
